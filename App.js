@@ -1,21 +1,25 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'    
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const parent = React.createElement('div', {id: 'parent'}, 
-    [React.createElement('div', {id: 'child'}, 
-        [
-            React.createElement('h1', {id: 'heading1'}, 'Hello I\'m a heading'),
-            React.createElement('h1', {id: 'heading2'}, 'Hello I\'m a heading 2')
-        ]
-    ),
-    React.createElement('div', {id: 'child2'}, 
-        [
-            React.createElement('h1', {id: 'heading1'}, 'Hello I\'m a heading'),
-            React.createElement('h1', {id: 'heading2'}, 'Hello I\'m a heading 2')
-        ]
-    )]
-)
+// React element
 
+const name = "React!";
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(parent)
+const TitleComponent = () => (
+  <h1 id="heading1" tabIndex={3}>
+    Hello world {name}
+  </h1>
+);
+
+// React Functional component
+const HeadingComponent = () => {
+  return (
+    <div>
+      <TitleComponent />
+      <h1 id="heading">Hello world from Functions!</h1>
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<HeadingComponent />);
