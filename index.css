@@ -65,3 +65,8 @@ p {
     color: rgb(62, 62, 62);
     padding: 2px;
 }
+
+.filter-btn {
+    padding: 8px;
+    margin: 10px;
+}
