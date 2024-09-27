@@ -31,13 +31,13 @@ html, body {
     padding: 16px;
 }
 
-.restaurant-container {
+.restaurant-container, .shimmer-wrapper {
     padding: 24px 0px;
     display:flex;
     flex-wrap: wrap;
 }
 
-.restaurant-container > .restaurant-card {
+.restaurant-container > .restaurant-card, .shimmer-wrapper>.shimmer {
     padding: 16px;
     margin: 16px;
     width: 200px;
@@ -67,6 +67,28 @@ p {
 }
 
 .filter-btn {
+    display: flex;
+    padding: 8px;
+    margin: 10px;
+}
+
+.btn {
+    padding: 16px;
+    cursor: pointer;
+}
+.search-btn, .top-rated-btn, .clear {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    margin: 10px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.clear {
+    background-color: gray;
+}
+input {
     padding: 8px;
     margin: 10px;
 }
