@@ -37,7 +37,7 @@ html, body {
     flex-wrap: wrap;
 }
 
-.restaurant-card, .shimmer-wrapper>.shimmer {
+.restaurant-card, .shimmer-wrapper>.shimmer, .user-card {
     padding: 16px;
     margin: 16px;
     width: 200px;
