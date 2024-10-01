@@ -6,8 +6,8 @@ class UserClass extends Component {
 
     this.state = {
       userInfo: {
-        name: "",
-        location: "",
+        login: "",
+        html_url: "",
       },
     };
   }
@@ -22,11 +22,11 @@ class UserClass extends Component {
   }
 
   render() {
-    const { name, location } = userInfo;
+    const { login, html_url } = this.state.userInfo;
     return (
       <div className="user-card">
-        <h2>{name}</h2>
-        <h3>Location: {location}</h3>
+        <h2>{login}</h2>
+        <h3>Location: {html_url}</h3>
       </div>
     );
   }
