@@ -1,16 +1,6 @@
 import { Component } from "react";
 import UserClass from "../components/UserClass";
-import Cart from "../components/Cart";
-// const AboutUs = () => {
-//   return (
-//     <div className="about-us-container">
-//       About Us
-//       <hr />
-//       <UserClass name={"Namratha"} location={"Mangalore"}></UserClass>
-//     </div>
-//   );
-// };
-
+import UserContext from "./utils/UserContext";
 class AboutUs extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +11,12 @@ class AboutUs extends Component {
       <div className="about-us-container">
         About Us
         <hr />
-        <UserClass name={"Namratha"} location={"Mangalore"}></UserClass>
+        <UserContext.Consumer>
+          {(data) => (
+            <h2 className="font-bold">Logged UserName: {data.loggedInUser}</h2>
+          )}
+        </UserContext.Consumer>
+        <UserClass name={"Namratha"}></UserClass>
       </div>
     );
   }

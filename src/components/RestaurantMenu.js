@@ -1,18 +1,24 @@
 import Shimmer from "./Shimmer";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "./utils/useRestaurantMenu";
-import { MENU_IMAGE_LINK } from "./utils/constants";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
-
+  const [showIndex, setShowIndex] = useState(null);
+  const [showItems, setShowItems] = useState(false);
   if (resInfo === null) return <Shimmer />;
 
   const { id, name, costForTwo, cuisines } = resInfo.cards[2].card.card.info;
-  const { itemCards } =
-    resInfo.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card;
-  console.log(itemCards[0].card.info);
+  const categories =
+    resInfo.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
+      (item) =>
+        item?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+
   return (
     <div className="px-2 pt-24 max-w-[800px] mx-auto min-h-[800px]">
       <h2 className="text-2xl text-slate-600 font-bold">{name}</h2>
@@ -22,35 +28,16 @@ const RestaurantMenu = () => {
         <span className="pt-4 font-bold text-sm">{cuisines.join(", ")}</span>
       </div>
 
-      <h3 className="pt-4 pb-2 text-neutral-500 font-extrabold">
-        Recommended ({itemCards.length})
-      </h3>
-      <hr></hr>
-      <ul className="p-4">
-        {itemCards.map((item) => (
-          <li className="py-4 border-b-2" key={item.card.info.id}>
-            <div className="flex justify-between">
-              <div>
-                <span className="p-[2px] rounded-md border-2 text-xs">
-                  {item.card.info.isVeg ? "🟢" : "🔴"}
-                </span>
-                <h2 className="font-medium"> {item.card.info.name}</h2>
-                <h4 className="font-light pt-4">
-                  Rs.
-                  {item.card.info.defaultPrice / 100 ||
-                    item.card.info.price / 100}
-                </h4>
-              </div>
-              <div>
-                <img
-                  className="w-[100px]"
-                  src={MENU_IMAGE_LINK + item.card.info.imageId}
-                />
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {categories.map((category, index) => (
+        <RestaurantCategory
+          key={category?.card?.card?.title}
+          category={category}
+          showItems={index === showIndex ? true : false}
+          setShowIndex={() => {
+            index === showIndex ? setShowIndex(null) : setShowIndex(index);
+          }}
+        />
+      ))}
     </div>
   );
 };

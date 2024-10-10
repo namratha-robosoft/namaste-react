@@ -6,7 +6,7 @@ class UserClass extends Component {
 
     this.state = {
       userInfo: {
-        login: "",
+        login: props.name,
         html_url: "",
       },
     };
