@@ -10,6 +10,8 @@ import Contact from "./components/Contact";
 import ErrorPage from "./components/ErrorPage";
 import RestaurantMenu from "./components/RestaurantMenu";
 import UserContext from "./components/utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./components/utils/appStore";
 
 const AppLayout = () => {
   const [userInfo, setUserInfo] = useState();
@@ -21,12 +23,14 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
-      <div className="app">
-        <Header />
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
