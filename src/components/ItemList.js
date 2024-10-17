@@ -2,7 +2,7 @@ import { addItem } from "./utils/cartSlice";
 import { MENU_IMAGE_LINK } from "./utils/constants";
 import { useDispatch } from "react-redux";
 
-const ItemList = ({ itemCards }) => {
+const ItemList = ({ itemCards, isCart }) => {
   const dispatch = useDispatch();
 
   const clickHandler = (item) => {
@@ -11,10 +11,10 @@ const ItemList = ({ itemCards }) => {
 
   return (
     <ul className="p-4">
-      {itemCards.map((item) => (
-        <li className="py-4 border-b-2" key={item.card.info.id}>
+      {itemCards.map((item, index) => (
+        <li className="py-4 border-b-2" key={item.card.info.id + index}>
           <div className="flex justify-between">
-            <div>
+            <div className="w-[70%]">
               <span className="p-[2px] rounded-md border-2 text-xs">
                 {item.card.info.isVeg ? "🟢" : "🔴"}
               </span>
@@ -26,17 +26,19 @@ const ItemList = ({ itemCards }) => {
               </h4>
               <p className="text-sm font-thin">{item.card.info.description}</p>
             </div>
-            <div className="relative">
+            <div className="relative h-[150px]">
               <img
                 className="w-[100px] h-[100px] rounded-lg"
                 src={MENU_IMAGE_LINK + item.card.info.imageId}
               />
-              <button
-                className="absolute bottom-[-10px] left-[25%] text-sm bg-black text-white p-2 rounded-md"
-                onClick={() => clickHandler(item)}
-              >
-                Add+
-              </button>
+              {!isCart && (
+                <button
+                  className="absolute top-[58%] left-[25%] text-sm bg-black text-white p-2 rounded-md"
+                  onClick={() => clickHandler(item)}
+                >
+                  Add+
+                </button>
+              )}
             </div>
           </div>
         </li>

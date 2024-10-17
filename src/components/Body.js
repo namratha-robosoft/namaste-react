@@ -32,69 +32,68 @@ const Body = () => {
 
   const onlineStatus = useOnlineStatus();
 
+  const onSearchHandler = () => {
+    const filteredList = listOfRestaurants.filter((restaurant) =>
+      restaurant.info.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilteredRestaurants(filteredList);
+  };
+
   if (!onlineStatus)
     return (
       <h2>
         Looks like your internet is off, Please check your internet connection!!
       </h2>
     );
-
+  console.log(listOfRestaurants);
   return listOfRestaurants.length === 0 && !search ? (
     <Shimmer />
   ) : (
-    <div className="p-10 ">
+    <div className="max-w-[75%] m-auto p-10 ">
       <div className="flex pb-10">
-        <div className="flex ">
+        <div className="flex w-[50%]">
           <input
-            className="p-2 border-2 rounded-md"
+            className="p-2 border-2 rounded-md w-full"
             type="text"
             placeholder="Search for restaurants"
             onChange={(e) => {
               setSearch(e.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") onSearchHandler();
+            }}
             value={search}
           />
+        </div>
+        <div>
           <button
-            className="ml-4 bg-green-200 p-2 rounded-md"
+            className="ml-4 min-w-[100px] bg-orange-700 text-white font-semibold p-2 rounded-md"
             onClick={() => {
-              const filteredList = listOfRestaurants.filter((restaurant) =>
-                restaurant.info.name
-                  .toLowerCase()
-                  .includes(search.toLowerCase())
+              const filteredList = listOfRestaurants.filter(
+                (restaurant) => restaurant.info.avgRating > 4.2
               );
               setFilteredRestaurants(filteredList);
             }}
           >
-            Search
+            Top Rated Restaurant
+          </button>
+          <button
+            className="ml-4 min-w-[100px] bg-gray-400 font-semibold text-white p-2 rounded-md"
+            onClick={() => {
+              setSearch("");
+              setFilteredRestaurants(listOfRestaurants);
+            }}
+          >
+            Clear
           </button>
         </div>
-        <button
-          className="ml-4 bg-green-200 p-2 rounded-md"
-          onClick={() => {
-            const filteredList = listOfRestaurants.filter(
-              (restaurant) => restaurant.info.avgRating > 4.2
-            );
-            setFilteredRestaurants(filteredList);
-          }}
-        >
-          Top Rated Restaurant
-        </button>
-        <button
-          className="ml-4 bg-gray-400 p-2 rounded-md"
-          onClick={() => {
-            setSearch("");
-            setFilteredRestaurants(listOfRestaurants);
-          }}
-        >
-          Clear
-        </button>
 
-        <input
+        {/* <input
           className="m-2 p-2 border border-black"
           placeholder="Enter User Name"
           value={loggedInUser}
           onChange={(e) => setUserInfo(e.target.value)}
-        />
+        /> */}
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurants.map((restaurant) => (

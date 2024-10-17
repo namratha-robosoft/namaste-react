@@ -7,7 +7,7 @@ import RestaurantCategory from "./RestaurantCategory";
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
-  const [showIndex, setShowIndex] = useState(null);
+  const [showIndex, setShowIndex] = useState(0);
   const [showItems, setShowItems] = useState(false);
   if (resInfo === null) return <Shimmer />;
 
@@ -25,7 +25,8 @@ const RestaurantMenu = () => {
       <div className="mt-2 w-12 bg-green-600 pt-1"></div>
       <div className="pt-4">
         <span className="pt-4 font-bold text-sm">Rs. {costForTwo / 100}</span>
-        <span className="pt-4 font-bold text-sm">{cuisines.join(", ")}</span>
+        <br />
+        <span className="pt-4 font-thin text-sm">{cuisines.join(", ")}</span>
       </div>
 
       {categories.map((category, index) => (

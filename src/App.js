@@ -12,15 +12,11 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import UserContext from "./components/utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./components/utils/appStore";
+import OurTeam from "./components/OurTeam";
+import SignIn from "./components/SignIn";
 
 const AppLayout = () => {
   const [userInfo, setUserInfo] = useState();
-
-  useEffect(() => {
-    //make a api call for fetching the userInfo
-    const data = { name: "Namratha Kulal" };
-    setUserInfo(data.name);
-  }, []);
 
   return (
     <Provider store={appStore}>
@@ -46,29 +42,33 @@ const appRouter = createBrowserRouter([
         element: <Body />,
       },
       {
-        path: "/about",
-        element: <AboutUs />,
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/our-team",
+        element: <OurTeam />,
       },
       {
         path: "/contact",
         element: <Contact />,
       },
       {
-        path: "/cart",
-        element: <Cart />,
-      },
-      {
-        path: "/grocery",
-        element: (
-          <Suspense>
-            <Grocery />
-          </Suspense>
-        ),
-      },
-      {
         path: "/restaurants/:resId",
         element: <RestaurantMenu />,
       },
+      {
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+      // {
+      //   path: "/grocery",
+      //   element: (
+      //     <Suspense>
+      //       <Grocery />
+      //     </Suspense>
+      //   ),
+      // },
     ],
     errorElement: <ErrorPage />,
   },
